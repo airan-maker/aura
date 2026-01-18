@@ -14,7 +14,8 @@
       "Bash(pkill:*)",
       "Bash(for:*)",
       "Bash(do taskkill //F //PID $pid)",
-      "Bash(done sleep 3 netstat -ano)"
+      "Bash(done sleep 3 netstat -ano)",
+      "Bash(git add:*)"
     ]
   }
 }

@@ -96,7 +96,7 @@ export default function CompetitiveBatchPage() {
           totalUrls={totalUrls}
           completedCount={completedCount}
           failedCount={failedCount}
-          currentStep={currentStep}
+          currentStep={currentStep || undefined}
           urls={batch.urls}
           error={currentError}
         />

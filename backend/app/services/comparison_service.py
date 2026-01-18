@@ -141,9 +141,13 @@ class ComparisonService:
         Returns:
             List of completed AnalysisResult objects
         """
-        # Get batch to access URL entries
-        batch_stmt = select(CompetitiveAnalysisBatch).where(
-            CompetitiveAnalysisBatch.id == batch_id
+        from sqlalchemy.orm import joinedload
+
+        # Get batch to access URL entries with eager loading
+        batch_stmt = (
+            select(CompetitiveAnalysisBatch)
+            .options(joinedload(CompetitiveAnalysisBatch.urls))
+            .where(CompetitiveAnalysisBatch.id == batch_id)
         )
         batch_result = await self.db.execute(batch_stmt)
         batch = batch_result.scalar_one_or_none()
@@ -154,12 +158,11 @@ class ComparisonService:
         # Get all request IDs from batch URLs
         request_ids = [url_entry.request_id for url_entry in batch.urls]
 
-        # Fetch completed results
+        # Fetch completed results with eager loading of request relationship
         stmt = (
             select(AnalysisResult)
-            .where(
-                AnalysisResult.request_id.in_(request_ids)
-            )
+            .options(joinedload(AnalysisResult.request))
+            .where(AnalysisResult.request_id.in_(request_ids))
         )
         result = await self.db.execute(stmt)
         results = list(result.scalars().all())

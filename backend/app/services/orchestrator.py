@@ -134,7 +134,7 @@ class AnalysisOrchestrator:
 
     async def _crawl_website(self, url: str) -> Dict[str, Any]:
         """
-        Crawl the website.
+        Crawl the website using synchronous Playwright in thread.
 
         Args:
             url: URL to crawl
@@ -145,9 +145,17 @@ class AnalysisOrchestrator:
         Raises:
             CrawlerException: If crawling fails
         """
+        import asyncio
+        from app.services.crawler_sync import WebCrawlerSync
+
+        def sync_crawl():
+            """Run synchronous crawler in separate thread."""
+            with WebCrawlerSync(timeout=self.crawler_timeout) as crawler:
+                return crawler.crawl(url)
+
         try:
-            async with WebCrawler(timeout=self.crawler_timeout) as crawler:
-                return await crawler.crawl(url)
+            # Run synchronous crawler in thread pool to avoid event loop issues
+            return await asyncio.to_thread(sync_crawl)
         except Exception as e:
             raise CrawlerException(f"Failed to crawl {url}: {str(e)}")
 

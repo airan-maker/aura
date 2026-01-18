@@ -190,7 +190,7 @@ export function BatchProgressTracker({
                 {/* Progress Bar for Processing */}
                 {url.status === 'processing' && (
                   <div className="mt-2">
-                    <ProgressBar progress={url.progress} size="sm" />
+                    <ProgressBar progress={url.progress} />
                     <p className="text-xs text-gray-500 mt-1">{url.progress}%</p>
                   </div>
                 )}
