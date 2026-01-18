@@ -1,0 +1,9 @@
+{
+  "urls": [
+    "https://www.nike.com",
+    "https://www.adidas.com",
+    "https://www.puma.com"
+  ],
+  "labels": ["Nike", "Adidas", "Puma"],
+  "name": "Sportswear Brands E2E Test"
+}

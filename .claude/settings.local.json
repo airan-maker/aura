@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m pytest:*)",
+      "Bash(curl:*)",
+      "Bash(taskkill:*)",
+      "Bash(findstr:*)",
+      "Bash(python -m uvicorn:*)",
+      "Bash(timeout /t 5)",
+      "Bash(ping:*)",
+      "Bash(python:*)",
+      "Bash(netstat:*)",
+      "Bash(timeout 5 python -m uvicorn:*)",
+      "Bash(pkill:*)",
+      "Bash(for:*)",
+      "Bash(do taskkill //F //PID $pid)",
+      "Bash(done sleep 3 netstat -ano)"
+    ]
+  }
+}
